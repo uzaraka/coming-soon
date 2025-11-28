@@ -49,10 +49,10 @@ func main() {
 	o.Post("/notify", func(c okapi.Context) error {
 		request := &EmailRequest{}
 		if err := c.Bind(request); err != nil {
-			return c.AbortBadGateway("Bad request")
+			return c.AbortBadRequest("Bad request")
 		}
 		if request.Email == "" {
-			return c.AbortBadGateway("Bad request, email is required")
+			return c.AbortBadRequest("Bad request, email is required")
 
 		}
 		if err := saveEmail(request.Email); err != nil {
