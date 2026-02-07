@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"net/http"
 	"sync"
 
@@ -12,10 +13,12 @@ import (
 var (
 	fileMutex sync.Mutex
 	filename  = goutils.Env("DATA_FILE_NAME", "data/notifications.json")
+	//go:embed views/*
+	views embed.FS
 )
 
 func main() {
-	o := okapi.Default().WithRendererFromDirectory("views", ".html", ".templ")
+	o := okapi.Default().WithRendererFromFS(views, "views/*.templ")
 	cli := okapicli.New(o, "Uzaraka").Int("port", "p", 8080, "HTTP server port")
 	// Parse flags
 	if err := cli.Parse(); err != nil {

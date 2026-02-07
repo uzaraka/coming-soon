@@ -30,7 +30,6 @@ RUN chmod a+x /usr/local/bin/uzaraka && ln -s /usr/local/bin/uzaraka /uzaraka
 
 # Set working directory
 WORKDIR /app
-COPY views /app/views
 # Expose HTTP Port
 EXPOSE 8080
 
